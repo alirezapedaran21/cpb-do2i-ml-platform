@@ -1,0 +1,51 @@
+project:
+  name: cpb-do2i-ml-platform
+  task: multi_horizon_time_series_forecasting
+  status: research_prototype
+
+sampling:
+  expected_interval_seconds: 10
+  timestamp_column: timestamp
+  case_id_column: case_id
+
+prediction:
+  target_column: DO2i
+  horizons_minutes: [5, 10]
+  target_type: future_absolute_value
+  # The exact timestamp matching/tolerance policy must be defined during data audit.
+  target_alignment_policy: TO_BE_DEFINED
+
+features:
+  # Draft list based on the existing top-16 feature experiment.
+  # Verify names, units, timestamps, and availability against the actual training code/checkpoint.
+  selected:
+    - cardiac_index
+    - pump_flow
+    - arterial_temperature
+    - DO2i
+    - cross_clamp_on
+    - PaCO2_ABG
+    - PaO2_ABG
+    - SaO2_ABG
+    - pH_ABG
+    - Hb_lab
+    - lactate_lab
+    - sweep_gas_flow
+    - lab_age_sec
+    - time_from_cpb_start
+    - inline_PaO2
+    - FiO2
+  availability_rule: only_values_available_at_prediction_timestamp
+
+split:
+  strategy: group_by_case
+  # Historical split reported in the existing work; verify using the actual case IDs.
+  train_cases: 140
+  validation_cases: 30
+  test_cases: 30
+  random_seed: 42
+
+reproducibility:
+  python: "3.11"
+  random_seeds: [42]
+  deterministic_algorithms: true

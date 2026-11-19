@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environments and secrets
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Experiment and generated artifacts
+mlruns/
+.mlflow/
+outputs/
+reports/generated/
+*.log
+
+# Large data/model files: add these to DVC, then commit the generated *.dvc metadata
+*.csv
+*.parquet
+*.feather
+*.arrow
+*.pt
+*.pth
+*.onnx
+*.pkl
+*.joblib
